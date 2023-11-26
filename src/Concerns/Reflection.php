@@ -6,6 +6,7 @@ trait Reflection
 {
     private array $reflections = [];
     private array $publicProperties = [];
+    private array $publicMethods = [];
 
     /**
      * @throws \ReflectionException
@@ -40,7 +41,7 @@ trait Reflection
         $sClass = $this->getClass($class);
         if (!$this->publicProperties[$sClass]) {
             foreach ($this->getProperties($class) as $property) {
-                $this->publicProperties[$sClass] = $property->getName();
+                $this->publicProperties[$sClass][] = $property->getName();
             }
         }
 
@@ -58,6 +59,22 @@ trait Reflection
         return $this->getReflection($class)->getMethods($filter);
     }
 
+    /**
+     * @param object|string $class
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getPublicMethods(object|string $class): array
+    {
+        $sClass = $this->getClass($class);
+        if (!$this->publicMethods[$sClass]) {
+            foreach ($this->getMethods($class) as $method) {
+                $this->publicMethods[$sClass][] = $method->getName();
+            }
+        }
+
+        return $this->publicMethods[$sClass];
+    }
     /**
      * @param object|string $class
      * @param int|null $filter
