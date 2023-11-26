@@ -4,11 +4,13 @@ namespace Sajadsdi\PhpReflection\Concerns;
 
 trait Reflection
 {
-    private array $reflections = [];
+    private array $reflections      = [];
     private array $publicProperties = [];
-    private array $publicMethods = [];
+    private array $publicMethods    = [];
 
     /**
+     * @param object|string $class
+     * @return \ReflectionClass
      * @throws \ReflectionException
      */
     public function getReflection(object|string $class): \ReflectionClass
@@ -39,10 +41,10 @@ trait Reflection
     public function getPublicProperties(object|string $class): array
     {
         $sClass = $this->getClass($class);
-        if (!$this->publicProperties[$sClass]) {
-            foreach ($this->getProperties($class) as $property) {
-                $this->publicProperties[$sClass][] = $property->getName();
-            }
+        if (!isset($this->publicProperties[$sClass])) {
+            $this->publicProperties[$sClass] = array_map(function ($property) {
+                return $property->getName();
+            }, $this->getProperties($class));
         }
 
         return $this->publicProperties[$sClass];
@@ -67,14 +69,15 @@ trait Reflection
     public function getPublicMethods(object|string $class): array
     {
         $sClass = $this->getClass($class);
-        if (!$this->publicMethods[$sClass]) {
-            foreach ($this->getMethods($class) as $method) {
-                $this->publicMethods[$sClass][] = $method->getName();
-            }
+        if (!isset($this->publicMethods[$sClass])) {
+            $this->publicMethods[$sClass] = array_map(function ($method) {
+                return $method->getName();
+            }, $this->getMethods($class));
         }
 
         return $this->publicMethods[$sClass];
     }
+
     /**
      * @param object|string $class
      * @param int|null $filter
@@ -92,6 +95,6 @@ trait Reflection
      */
     private function getClass(object|string $class): string
     {
-        return is_string($class)?$class:$class::class;
+        return is_string($class) ? $class : $class::class;
     }
 }
