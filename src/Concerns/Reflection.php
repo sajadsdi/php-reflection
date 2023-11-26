@@ -4,7 +4,7 @@ namespace Sajadsdi\PhpReflection\Concerns;
 
 trait Reflection
 {
-    protected array $reflections      = [];
+    private array $reflections      = [];
 
     /**
      * @param object|string $class
