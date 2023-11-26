@@ -4,9 +4,7 @@ namespace Sajadsdi\PhpReflection\Concerns;
 
 trait Reflection
 {
-    private array $reflections      = [];
-    private array $publicProperties = [];
-    private array $publicMethods    = [];
+    protected array $reflections      = [];
 
     /**
      * @param object|string $class
@@ -35,23 +33,6 @@ trait Reflection
 
     /**
      * @param object|string $class
-     * @return array
-     * @throws \ReflectionException
-     */
-    public function getPublicProperties(object|string $class): array
-    {
-        $sClass = $this->getClass($class);
-        if (!isset($this->publicProperties[$sClass])) {
-            $this->publicProperties[$sClass] = array_map(function ($property) {
-                return $property->getName();
-            }, $this->getProperties($class));
-        }
-
-        return $this->publicProperties[$sClass];
-    }
-
-    /**
-     * @param object|string $class
      * @param int|null $filter
      * @return array
      * @throws \ReflectionException
@@ -59,23 +40,6 @@ trait Reflection
     public function getMethods(object|string $class, int|null $filter = \ReflectionMethod::IS_PUBLIC): array
     {
         return $this->getReflection($class)->getMethods($filter);
-    }
-
-    /**
-     * @param object|string $class
-     * @return array
-     * @throws \ReflectionException
-     */
-    public function getPublicMethods(object|string $class): array
-    {
-        $sClass = $this->getClass($class);
-        if (!isset($this->publicMethods[$sClass])) {
-            $this->publicMethods[$sClass] = array_map(function ($method) {
-                return $method->getName();
-            }, $this->getMethods($class));
-        }
-
-        return $this->publicMethods[$sClass];
     }
 
     /**
