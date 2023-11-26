@@ -1,0 +1,20 @@
+{
+    "name": "sajadsdi/php-reflection",
+    "description": "Tools for get Classes reflection",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sajadsdi\\PhpReflection\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "SajaD SaeeDi",
+            "email": "thunder11like@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    }
+}
