@@ -4,16 +4,16 @@ namespace Sajadsdi\PhpReflection\Concerns;
 
 trait Reflection
 {
-    private array $reflections      = [];
+    protected array $reflections      = [];
 
     /**
      * @param object|string $class
      * @return \ReflectionClass
      * @throws \ReflectionException
      */
-    public function getReflection(object|string $class): \ReflectionClass
+    public function reflection(object|string $class): \ReflectionClass
     {
-        $sClass = $this->getClass($class);
+        $sClass = $this->ClassName($class);
         if (!isset($this->reflections[$sClass])) {
             $this->reflections[$sClass] = new \ReflectionClass($class);
         }
@@ -22,42 +22,42 @@ trait Reflection
 
     /**
      * @param object|string $class
-     * @param int|null $filter
+     * @param int $filter
      * @return array
      * @throws \ReflectionException
      */
-    public function getProperties(object|string $class, int|null $filter = \ReflectionProperty::IS_PUBLIC): array
+    public function properties(object|string $class, int $filter = \ReflectionProperty::IS_PUBLIC): array
     {
-        return $this->getReflection($class)->getProperties($filter);
+        return $this->reflection($class)->getProperties($filter);
     }
 
     /**
      * @param object|string $class
-     * @param int|null $filter
+     * @param int $filter
      * @return array
      * @throws \ReflectionException
      */
-    public function getMethods(object|string $class, int|null $filter = \ReflectionMethod::IS_PUBLIC): array
+    public function methods(object|string $class, int $filter = \ReflectionMethod::IS_PUBLIC): array
     {
-        return $this->getReflection($class)->getMethods($filter);
+        return $this->reflection($class)->getMethods($filter);
     }
 
     /**
      * @param object|string $class
-     * @param int|null $filter
+     * @param int $filter
      * @return array
      * @throws \ReflectionException
      */
-    public function getConstants(object|string $class, int|null $filter = \ReflectionClassConstant::IS_PUBLIC): array
+    public function constants(object|string $class, int $filter = \ReflectionClassConstant::IS_PUBLIC): array
     {
-        return $this->getReflection($class)->getConstants($filter);
+        return $this->reflection($class)->getConstants($filter);
     }
 
     /**
      * @param object|string $class
      * @return string
      */
-    private function getClass(object|string $class): string
+    private function ClassName(object|string $class): string
     {
         return is_string($class) ? $class : $class::class;
     }
