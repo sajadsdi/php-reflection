@@ -1,6 +1,6 @@
 {
     "name": "sajadsdi/php-reflection",
-    "description": "Tools for get Classes reflection",
+    "description": "Tools for get class reflection",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -16,5 +16,8 @@
     ],
     "require": {
         "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0|^10.0"
     }
 }
