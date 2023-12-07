@@ -5,7 +5,10 @@ The PHP Reflection library provides a set of tools for performing class reflecti
 ### Installation
 
 You can install the PHP Reflection library via Composer. Run the following command in your project directory:
+```bash
 composer require sajadsdi/php-reflection
+```
+
 ### Usage
 
 To use the Reflections library, follow these steps:
